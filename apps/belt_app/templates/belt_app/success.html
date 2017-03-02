@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Django Friends</title>
+    <link rel="stylesheet" href="{% static 'belt_app/css/styles.css' %}">
+    <script src="https://use.typekit.net/iii7xtz.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+<body>
+  <div class="container">
+    <div class="col-md-8">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h2>People not your friends</h2>
+        </div>
+        <div class="panel-body">
+          {%for i in users%}
+          {% if i not in filtered_friends_list and i.id != loggedInUserID %}
+          <h3><a href="/user/{{i.id}}">{{i.name}} {{i.alias}}</a></h3>
+          <form action="/friend/{{i.id}}">
+          <input class="friends" type="submit" value="Add as Friend" name='add_friend'>
+          </form>
+          <!-- <a href="/delete_user/{{i.id}}">Delete</a> -->
+          <hr>
+          {% endif %}
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+  <div class="col-md-4">
+    <h4>Hi, {{ request.session.active_user.name}} | <a href="/user/{{ request.session.active_user.id}} ">Profile</a> | <a href="/logout">Logout</a> </h4>
+          <br>
+          {% if friends %}
+          <h4>My Friends</h4>
+          {%for i in friends%}
+          {{i.friend.name}} {{i.friend.alias}}
+          <br>
+          <a href="/user/{{i.friend.id}}"><input class="friends" type="submit" name="" value="View Profile"></a>
+          <a href="unfriend/{{i.id}}"><input class="delete-friends" type="submit" name='delete' value="Remove Friend"></a>
+          <!-- <form action="delete/{{i.id}}">
+          <input class="delete-friends" type="submit" value="Remove Friend" name='delete'>
+          </form> -->
+          <hr>
+          {%endfor%}
+          {%else%}
+          <h5>You currently have no friends :(</h5>
+          {% endif %}
+        </div>
+      </div>
+    </body>
+</html>

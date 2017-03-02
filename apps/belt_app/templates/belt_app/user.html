@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Users</title>
+	<link rel="stylesheet" href="{% static 'belt_app/css/styles.css' %}">
+	<script src="https://use.typekit.net/iii7xtz.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Profile</h3>
+			</div>
+			<div class="panel-body">
+				<p>{{user.alias}}'s Profile</p>
+				<p>Name: {{user.name}}</p>
+				<p>Email:{{user.email}}</p>
+				<p>Birthday:{{user.birthday}}</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="col-md-4">
+		<h4>Hi, {{ request.session.active_user.name}} | <a href="/success">Home</a> | <a href="/logout">Logout</a> </h4>
+	</div>
+</div>
+
+</body>
+</html>
